@@ -74,17 +74,15 @@ class Rouge155(object):
     def __init__(self, rouge_dir=None, rouge_args=None, log_level=None):
         """
         Create a Rouge155 object.
-
             rouge_dir:  Directory containing Rouge-1.5.5.pl
             rouge_args: Arguments to pass through to ROUGE if you
                         don't want to use the default pyrouge
                         arguments.
-
         """
         if log_level is None:
-                self.log = log.get_global_console_logger()
+            self.log = log.get_global_console_logger()
         else:
-                self.log = log.get_global_console_logger(log_level)		
+            self.log = log.get_global_console_logger(log_level)
         self.__set_dir_properties()
         self._config_file = None
         self._settings_file = self.__get_config_path()
@@ -360,7 +358,8 @@ class Rouge155(object):
         """
         if split_sentences:
             self.split_sentences()
-        self.__write_summaries()
+        # Not needed if using SPL Type input format
+        # self.__write_summaries()
         rouge_output = self.evaluate(system_id, rouge_args)
         return rouge_output
 
@@ -452,7 +451,7 @@ class Rouge155(object):
     <EVAL ID="{task_id}">
         <MODEL-ROOT>{model_root}</MODEL-ROOT>
         <PEER-ROOT>{peer_root}</PEER-ROOT>
-        <INPUT-FORMAT TYPE="SEE">
+        <INPUT-FORMAT TYPE="SPL">
         </INPUT-FORMAT>
         <PEERS>
             {peer_elems}
